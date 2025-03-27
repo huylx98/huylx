@@ -2,6 +2,13 @@
 
 <script>
   function loadGiscusComments() {
+    // Tìm container
+    const container = document.getElementById("giscus-container");
+    if (!container) {
+      console.warn("Giscus container not found");
+      return; // Thoát khỏi hàm nếu không tìm thấy container
+    }
+
     // Xóa script cũ nếu có
     const existingScript = document.querySelector(
       'script[src="https://giscus.app/client.js"]'
@@ -10,11 +17,8 @@
       existingScript.remove();
     }
 
-    // Xóa section giscus cũ nếu có
-    const container = document.getElementById("giscus-container");
-    if (container) {
-      container.innerHTML = "";
-    }
+    // Xóa nội dung cũ trong container
+    container.innerHTML = "";
 
     // Tạo script mới
     const script = document.createElement("script");
@@ -37,8 +41,12 @@
     container.appendChild(script);
   }
 
-  // Tải giscus lần đầu
-  loadGiscusComments();
+  // Đảm bảo DOM đã được tải trước khi gọi hàm
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadGiscusComments);
+  } else {
+    loadGiscusComments();
+  }
 
   // Tải lại khi chuyển trang với Astro View Transitions
   document.addEventListener("astro:page-load", loadGiscusComments);
