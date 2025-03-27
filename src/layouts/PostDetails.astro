@@ -13,6 +13,7 @@ import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
+import PostComments from "@/components/PostComments.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -160,6 +161,7 @@ const nextPost =
         )
       }
     </div>
+    <PostComments />
   </main>
   <Footer />
 </Layout>
@@ -184,6 +186,7 @@ const nextPost =
     // Append the progress container to the document body or any other desired parent element
     document.body.appendChild(progressContainer);
   }
+
   createProgressBar();
 
   /** Update the progress bar
@@ -204,6 +207,7 @@ const nextPost =
       }
     });
   }
+
   updateScrollProgress();
 
   /** Attaches links to headings in the document,
@@ -226,6 +230,7 @@ const nextPost =
       heading.appendChild(link);
     }
   }
+
   addHeadingLinks();
 
   /** Attaches copy buttons to code blocks in the document,
@@ -268,6 +273,7 @@ const nextPost =
       }, 700);
     }
   }
+
   attachCopyButtons();
 
   /** Scrolls the document to the top when
@@ -278,6 +284,7 @@ const nextPost =
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     });
   }
+
   backToTop();
 
   /* Go to page start after page swap */
