@@ -1,17 +1,55 @@
-<section class="giscus mx-auto mt-10 w-full"></section>
-<script
-  src="https://giscus.app/client.js"
-  data-repo="huylx98/huylx"
-  data-repo-id="R_kgDOOPg3KA"
-  data-category="Blog Posts Comments"
-  data-category-id="DIC_kwDOOPg3KM4Cogot"
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="top"
-  data-theme="transparent_dark"
-  data-lang="en"
-  crossorigin="anonymous"
-  async
-></script>
+<div id="giscus-container" class="mx-auto mt-10 w-full"></div>
+
+<script>
+  function loadGiscusComments() {
+    // Xóa script cũ nếu có
+    const existingScript = document.querySelector(
+      'script[src="https://giscus.app/client.js"]'
+    );
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // Xóa section giscus cũ nếu có
+    const container = document.getElementById("giscus-container");
+    if (container) {
+      container.innerHTML = "";
+    }
+
+    // Tạo script mới
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.setAttribute("data-repo", "huylx98/huylx");
+    script.setAttribute("data-repo-id", "R_kgDOOPg3KA");
+    script.setAttribute("data-category", "Blog Posts Comments");
+    script.setAttribute("data-category-id", "DIC_kwDOOPg3KM4Cogot");
+    script.setAttribute("data-mapping", "pathname");
+    script.setAttribute("data-strict", "0");
+    script.setAttribute("data-reactions-enabled", "1");
+    script.setAttribute("data-emit-metadata", "0");
+    script.setAttribute("data-input-position", "top");
+    script.setAttribute("data-theme", "transparent_dark");
+    script.setAttribute("data-lang", "en");
+    script.setAttribute("crossorigin", "anonymous");
+    script.async = true;
+
+    // Thêm script vào container
+    container.appendChild(script);
+  }
+
+  // Tải giscus lần đầu
+  loadGiscusComments();
+
+  // Tải lại khi chuyển trang với Astro View Transitions
+  document.addEventListener("astro:page-load", loadGiscusComments);
+
+  // Fallback cho trường hợp không sử dụng Astro View Transitions
+  let lastPath = window.location.pathname;
+  setInterval(() => {
+    const currentPath = window.location.pathname;
+    if (currentPath !== lastPath) {
+      lastPath = currentPath;
+      loadGiscusComments();
+    }
+  }, 300);
+</script>
